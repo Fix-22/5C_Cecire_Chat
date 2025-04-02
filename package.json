@@ -1,0 +1,29 @@
+{
+  "name": "5c_cecire_chat",
+  "version": "1.0.0",
+  "description": "chat con websocket",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fix-22/5C_Cecire_Chat.git"
+  },
+  "keywords": [
+    "chat",
+    "websocket",
+    "node"
+  ],
+  "author": "Simone Cecire",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Fix-22/5C_Cecire_Chat/issues"
+  },
+  "homepage": "https://github.com/Fix-22/5C_Cecire_Chat#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
+  }
+}
