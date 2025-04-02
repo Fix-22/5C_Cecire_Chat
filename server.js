@@ -23,12 +23,11 @@ server.listen(conf.port, () => {
 });
 
 io.on("connection", socket => {
-    console.log("Connesso:", socket.id);
-
-    io.emit("chat", "Nuova connessione con id: " + socket.id);
+    console.log("Nuova connessione con id:", socket.id);
+    io.emit("list", usersList);
     
-    socket.on("message", message => {
-        io.emit("chat", socket.id + ": " + message);
+    socket.on("message", messageEntity => {
+        io.emit("chat", messageEntity.name + ": " + messageEntity.message);
     });
 
     socket.on("name", name => {

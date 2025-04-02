@@ -1,4 +1,4 @@
-const chatInputContainer = document.getElementById("chatInputContainer");
+const chatForm = document.getElementById("chatForm");
 const inputMessage = document.getElementById("inputMessage");
 const sendButton = document.getElementById("sendButton");
 const chat = document.getElementById("chat");
@@ -8,11 +8,14 @@ const inputName = document.getElementById("inputName");
 
 const template = '<li class="list-group-item">%MESSAGE</li>';
 const messages = [];
+let username = "";
 
 const socket = io();
 
 enterButton.onclick = () => {
-    socket.emit("name", inputName.value);
+    username = inputName.value;
+    socket.emit("name", username);
+    chatForm.classList.remove("d-none");
 };
 
 inputMessage.onkeydown = (event) => {
@@ -23,12 +26,13 @@ inputMessage.onkeydown = (event) => {
 }
 
 sendButton.onclick = () => {
-    socket.emit("message", inputMessage.value);
-    inputMessage.value = "";
+    if (inputMessage.value) {
+        socket.emit("message", {name: username, message: inputMessage.value});
+        inputMessage.value = "";
+    }
 }
 
 socket.on("chat", (message) => {
-    console.log(message);
     messages.push(message);
     render();
 })
