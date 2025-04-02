@@ -15,20 +15,21 @@
         <h1>Chat - Simone Cecire</h1>
     </div>
     <div class="container">
-        <div class="row">
+        <div class="row d-none" id="chat">
             <div class="col">
-                <ul id="chat" class="list-group"></ul>
+                <strong>Chat</strong>
+                <ul id="chatMessages" class="list-group"></ul>
             </div>
             <div class="col">
                 <table class="table" id="usersTable"></table>
             </div>
+            <form class="form">
+                <input id="inputMessage" class="form-control" />
+                <button id="sendButton" type="button" class="btn btn-success">Invia</button>
+            </form>
         </div>
     </div>
     <div class="container">
-        <form class="form d-none" id="chatForm">
-            <input id="inputMessage" class="form-control" />
-            <button id="sendButton" type="button" class="btn btn-success">Invia</button>
-        </form>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal" id="openModalButton">Entra in chat</button>
     </div>
 

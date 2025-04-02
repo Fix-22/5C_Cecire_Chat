@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "node_modules/bootstrap/dist/"))); //permette accesso a bootstrap all'applicazione lato client
 
-const usersList = [];
+let usersList = [];
 
 const server = http.createServer(app);
 const io = new Server(server);
@@ -24,7 +24,6 @@ server.listen(conf.port, () => {
 
 io.on("connection", socket => {
     console.log("Nuova connessione con id:", socket.id);
-    io.emit("list", usersList);
     
     socket.on("message", messageEntity => {
         io.emit("chat", messageEntity.name + ": " + messageEntity.message);
@@ -32,6 +31,17 @@ io.on("connection", socket => {
 
     socket.on("name", name => {
         usersList.push({"socketId": socket.id, "name": name});
+        io.emit("list", usersList);
         console.log("Utente aggiunto: " + name);
+    });
+
+    socket.on("list", () => {
+        socket.emit("list", usersList);
+    })
+
+    socket.on("disconnect", () => {
+        usersList = usersList.filter(e => e.socketId !== socket.id);
+        io.emit("list", usersList);
+        console.log(socket.id, ": disconnesso");
     });
 });
